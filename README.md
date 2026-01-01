@@ -14,12 +14,6 @@ This is a **frontend project** for Hajj and Umrah services, built with **React**
 
 ---
 
-## Demo
-*(Optional: Add a link to your live demo if available)*  
-[Live Demo](#)
-
----
-
 ## Installation
 
 1. **Clone the repository**
