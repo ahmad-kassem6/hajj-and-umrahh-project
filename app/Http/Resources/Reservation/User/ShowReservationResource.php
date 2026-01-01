@@ -1,0 +1,37 @@
+<?php
+
+namespace App\Http\Resources\Reservation\User;
+
+use App\Enums\Role;
+use App\Http\Resources\Trip\UserIndexTripResource;
+use App\Http\Resources\Trip\UserShowTripResource;
+use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
+
+class ShowReservationResource extends JsonResource
+{
+    /**
+     * Transform the resource into an array.
+     *
+     * @return array<string, mixed>
+     */
+    public function toArray(Request $request): array
+    {
+        $canceledBy = null;
+        if ($this->canceledBy) {
+            $canceledBy = [
+                'id' => $this->canceledBy->id,
+                'name' => $this->canceledBy->name,
+                'contact' => $this->canceledBy->contact,
+                'actor' => $this->canceledBy->role === Role::USER ? "customer" : "admin",
+            ];
+        }
+        return [
+            'id' => $this->id,
+            'status' => $this->status,
+            'number_of_tickets' => $this->number_of_tickets,
+            'canceled_by' => $canceledBy,
+            'trip' => UserShowTripResource::make($this->trip),
+        ];
+    }
+}
